@@ -4,6 +4,8 @@ Keychaindump is a proof-of-concept tool for reading OS X keychain passwords as r
 See the [blog post](http://juusosalonen.com/post/30923743427/breaking-into-the-os-x-keychain) for a much more readable description.
 
 ## How?
+
+Just use the binary file, `keychaindump`, or follow these build instructions.
 Build instructions:
 
     $ gcc keychaindump.c -o keychaindump -lcrypto
