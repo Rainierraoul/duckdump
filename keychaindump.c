@@ -431,10 +431,14 @@ void print_credentials() {
     int i;
     for (i = 0; i < g_credentials_count; ++i) {
         t_credentials *cred = &g_credentials[i];
-        if (!cred->account && !cred->server) 
+        if (!cred->account && !cred->server){ 
+            printf("Pass 1\n");
             continue;
-        if (!strcmp(cred->account, "Passwords not saved")) 
+        }
+        if (!strcmp(cred->account, "Passwords not saved")) {
+            printf("Pass 2\n");
             continue;
+        }
         printf("%s:%s:%s\n", cred->account, cred->server, cred->password);
     }
 }
