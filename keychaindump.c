@@ -431,8 +431,10 @@ void print_credentials() {
     int i;
     for (i = 0; i < g_credentials_count; ++i) {
         t_credentials *cred = &g_credentials[i];
-        if (!cred->account && !cred->server) continue;
-        if (!strcmp(cred->account, "Passwords not saved")) continue;
+        if (!cred->account && !cred->server) 
+            continue;
+        if (!strcmp(cred->account, "Passwords not saved")) 
+            continue;
         printf("%s:%s:%s\n", cred->account, cred->server, cred->password);
     }
 }
@@ -504,11 +506,11 @@ int main(int argc, char **argv) {
     // Phase 3. Using the wrapping key, dump all credentials from the keychain
     // file into the global credentials list and decrypt everything.
     dump_keychain(key, buffer);
-    printf("[+] dumps_keychain");
+    printf("[+] dumps_keychain \n");
     decrypt_credentials();
-    printf("[+] decrypts_credentials");
+    printf("[+] decrypts_credentials \n");
     print_credentials();
-    printf("[+] prints_credentials");
+    printf("[+] prints_credentials \n");
 
 
     free(buffer);
