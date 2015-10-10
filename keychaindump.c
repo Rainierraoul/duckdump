@@ -504,9 +504,13 @@ int main(int argc, char **argv) {
     // Phase 3. Using the wrapping key, dump all credentials from the keychain
     // file into the global credentials list and decrypt everything.
     dump_keychain(key, buffer);
+    printf("[+] dumps_keychain");
     decrypt_credentials();
+    printf("[+] decrypts_credentials");
     print_credentials();
-    
+    printf("[+] prints_credentials");
+
+
     free(buffer);
     return 0;
 }
