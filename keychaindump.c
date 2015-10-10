@@ -487,7 +487,7 @@ int main(int argc, char **argv) {
         char s_key[24*2+1];
         hex_string(s_key, g_master_candidates[i], 24);
         printf("[*] Trying master key candidate: %s\n", s_key);
-        if (key_len == dump_wrapping_key(key, g_master_candidates[i], buffer, sz)) {
+        if (key_len = dump_wrapping_key(key, g_master_candidates[i], buffer, sz)) {
             printf("[+] Found master key: %s\n", s_key);
             break;
         }
